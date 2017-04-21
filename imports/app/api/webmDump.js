@@ -10,9 +10,10 @@ const FILE =
 
 export const Dump = new FilesCollection({
   collectionName: 'Dump',
-  storagePath: 'assets/app/uploads/Dump',
+  storagePath: 'dump',
   downloadRoute: '/files/dump',
-  allowClientCode: false, // Disallow remove files from Client
+  allowClientCode: false,
+  cacheControl: 'public, max-age=31536000',
   onBeforeUpload: function (file) {
     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
     if (file.size <= FILE.SIZE && /webm|mp4|3gp/i.test(file.extension)) {
