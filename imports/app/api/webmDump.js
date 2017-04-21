@@ -10,7 +10,7 @@ const FILE =
 
 export const Dump = new FilesCollection({
   collectionName: 'Dump',
-  storagePath: 'dump',
+  storagePath: 'C:/dump',
   downloadRoute: '/files/dump',
   allowClientCode: false,
   cacheControl: 'public, max-age=31536000',

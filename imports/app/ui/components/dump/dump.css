@@ -1,0 +1,8 @@
+.webm-trash {
+    width: 100%;
+    text-align: center;
+}
+
+.webm-trash > video {
+    width: 500px;
+}

@@ -1,14 +1,3 @@
-<body>
-<div class="background-wrapper">
-    <div class="messages-wrapper">
-        <h1>Тебе здесь всегда рады!</h1>
-        {{> uploadForm}}
-        {{> uploadedFiles}}
-        {{> messageWindow}} {{> messageInput}}
-    </div>
-</div>
-</body>
-
 <template name="messageInput">
     <form class="message-input send-message">
         <input type="text" name="name" autocomplete="off"
@@ -40,27 +29,4 @@
         <div class="rate-button"></div>
         <div class="fullscreen-button"></div>
     </div>
-</template>
-
-<template name="uploadForm">
-    {{#with currentUpload}}
-        Uploading <b>{{file.name}}</b>:
-        <span id="progress">{{progress.get}}%</span>
-    {{else}}
-        <input id="fileInput" type="file"/>
-    {{/with}}
-</template>
-
-<template name="uploadedFiles">
-    <button class="click"></button>
-    <hr>
-    {{#each dump}}
-      {{> video}}
-    {{/each}}
-</template>
-
-<template name="video">
-    <video height="auto" controls="controls">
-        <source src="{{link}}?play=true" type="{{type}}"/>
-    </video>
 </template>

@@ -1,3 +1,13 @@
 <head>
   <title>chat</title>
 </head>
+<body>
+<div class="background-wrapper">
+    {{> uploadForm}}
+    {{> uploadedFiles}}
+    <div class="messages-wrapper">
+        <h1>Тебе здесь всегда рады!</h1>
+        {{> messageWindow}} {{> messageInput}}
+    </div>
+</div>
+</body>
