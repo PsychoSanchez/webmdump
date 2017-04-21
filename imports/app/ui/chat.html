@@ -1,0 +1,38 @@
+<body>
+    <div class="background-wrapper">
+        <div class="messages-wrapper">
+            <h1>Тебе здесь всегда рады!</h1>
+            {{> messageWindow}} {{> messageInput}}
+        </div>
+    </div>
+</body>
+
+<template name="messageInput">
+    <form class="message-input send-message">
+        <input type="text" name="name" autocomplete="off" placeholder="Enter Name">
+        <input type="text" name="message" autocomplete="off" placeholder="Enter Message">
+        <button type="submit" name="sendMessage">Отправить</button>
+    </form>
+</template>
+
+<template name="messageWindow">
+    <div class="message-window">
+        {{#each messages}} {{> messageBox}} {{/each}}
+    </div>
+</template>
+
+<template name="messageBox">
+    <div class="message"><span class="message-username">{{user}}: </span>{{message}}</div>
+</template>
+
+<template>
+    <video src="" controls="false">
+        <source>
+    </video>
+    <div class="custom-controls">
+        <div class="play-button"></div>
+        <div class="mute-button"></div>
+        <div class="rate-button"></div>
+        <div class="fullscreen-button"></div>
+    </div>
+</template>

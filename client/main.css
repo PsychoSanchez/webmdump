@@ -1,0 +1,72 @@
+/* CSS declarations go here */
+
+html,
+body {
+    min-height: 100%;
+    padding: 0;
+    margin: 0;
+    background: url('/bg.png') no-repeat 100% 100% fixed;
+    font-family: -apple-system, BlinkMacSystemFont, Roboto, Open Sans, Helvetica Neue, sans-serif;
+    font-size: 13px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: #F1F9F5;
+}
+
+h1 {
+    margin-top: 0;
+    color: #2F7455;
+}
+
+body>div {
+    flex: 1;
+}
+
+.send-message {
+    max-height: 30px;
+    height: 30px;
+}
+
+.message {
+    min-height: 25px;
+}
+
+.message-input {
+    max-height: 30px;
+    height: 30px;
+    position: fixed;
+    bottom: 0;
+}
+
+.message-window {
+    position: relative;
+    padding-bottom: 50px;
+}
+
+.background-wrapper {
+    background: rgba(0, 0, 0, 0.42);
+}
+
+.messages-wrapper {
+    color: white;
+    width: 550px;
+    padding: 0 30px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.5);
+    border: 2px solid black;
+}
+
+.message-input {
+    width: inherit;
+    height: 50px;
+    display: flex;
+    flex-direction: row;
+}
+
+.message-input>input {
+    flex: 1;
+}
