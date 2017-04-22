@@ -252,7 +252,7 @@ export class MediaPlayer {
 
   updateProgressBar() {
     let duration = !isNaN(this.player.duration) ? this.player.duration : 1;
-    let percentage = Math.floor((100 / duration) * this.player.currentTime);
+    let percentage = (100 / duration) * this.player.currentTime;
     this.progressBar.value = percentage;
   };
 }
