@@ -5,7 +5,7 @@ import {Meteor} from 'meteor/meteor';
 import {Template} from 'meteor/templating';
 import {Dump} from '../../../api/webmDump';
 import './dump.html';
-import './dump.css';
+import './dump.less';
 import {DOMAIN} from '../../../data/localConfig'
 
 
@@ -61,7 +61,7 @@ Template.uploadedFiles.helpers({
     let files = fileCursor.each();
     _.forEach(files, file=>{
       let temp = {};
-      temp.link = file.link().replace('localhost:3000', DOMAIN);
+      temp.link = file.link().replace('localhost', DOMAIN);
       temp.postLink = '/dump/' + file._id;
       temp.type = file.type;
       temp.name = file.name;
@@ -73,12 +73,12 @@ Template.uploadedFiles.helpers({
 });
 
 Template.uploadedFiles.events({
-  'click video': function (e, template) {
-    // TODO: instead of reroutong load video after preview
-    let webms = template.webmsArray.get();
-    let path = _.find(webms, webm =>{
-      return webm.link === e.toElement.currentSrc;
-    }).postLink;
-    FlowRouter.go(path)
-  }
+  // 'click video': function (e, template) {
+  //   // TODO: instead of reroutong load video after preview
+  //   let webms = template.webmsArray.get();
+  //   let path = _.find(webms, webm =>{
+  //     return webm.link === e.toElement.currentSrc;
+  //   }).postLink;
+  //   FlowRouter.go(path)
+  // }
 });

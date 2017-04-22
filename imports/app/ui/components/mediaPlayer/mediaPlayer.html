@@ -1,16 +1,37 @@
 <template name="player">
-    <video class="media-player" data-src="{{dump.link}}" data-type="{{dump.type}}" tabindex="0" controls>
+  <div class="css-video-container-block">
+    <div class="css-video-container">
+      <video class="media-player css-video" data-src="{{dump.link}}" data-type="{{dump.type}}" tabindex="0">
         <source src="{{dump.link}}" type="{{dump.type}}">
-    </video>
-    <div class="player-controls">
-        <div class="screen-play-button"></div>
-        <button class="play-button play" title="play">Play</button>
-        <button class="stop-button stop" title="stop">Stop</button>
-        <input type="range" min="0" max="100" title="volume" class="volume-slider">
-        <button class="volume-inc-button volume-plus" title="increase volume">Increase volume</button>
-        <button class="volume-dec-button volume-minus" title="decrease volume">Decrease volume</button>
-        <button class="mute-button mute" title="mute">Mute</button>
-        <button class="replay-button replay" title="replay">Replay</button>
+      </video>
+      <div class="player-controls css-controls">
         <input type="range" class="duration" max="100" value="0" title="progress"/>0% played
+        <div class="css-controls-buttons">
+          <div class="play-button css-button css-button-play css-play">
+            <svg class="css-image-play" viewBox="0 0 41.999 41.999">
+              <use xlink:href="res/button-play.svg#Button"></use>
+            </svg>
+            <svg class="css-image-pause" viewBox="0 0 232.679 232.679">
+              <use xlink:href="res/button-play.svg#Button"></use>
+            </svg>
+          </div>
+          <div class="play-button css-button css-button-volume css-volume-on">
+            <svg class="css-image-volume-on" viewBox="0 0 459 459">
+              <use xlink:href="res/button-volume-on.svg#Button"></use>
+            </svg>
+            <svg class="css-image-volume-off" viewBox="0 0 461.55 461.55">
+              <use xlink:href="res/button-volume-on.svg#Button"></use>
+            </svg>
+          </div>
+
+          <div class="css-volume-range">
+            <div class="slider">
+              <input type="range" min="0" max="100" title="volume" onchange="rangevalue.value=value" class="volume-slider"/>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
 </template>
