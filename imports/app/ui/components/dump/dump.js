@@ -4,7 +4,6 @@
 import {Meteor} from 'meteor/meteor';
 import {Template} from 'meteor/templating';
 import {Dump} from '../../../api/webmDump';
-import '../chat/chat.css'
 import './dump.html';
 import './dump.css';
 
@@ -52,16 +51,19 @@ Template.uploadForm.events({
 
 Template.uploadedFiles.helpers({
   dump() {
-    let fileCursor = Dump.find();
+    let fileCursor = Dump.find({}, {sort: {sendDate: -1}});
     let filesArray = [];
     let files = fileCursor.each();
-    files.forEach(function (file) {
+
+    for (let i = files.length - 1; i > 0; i--) {
       let temp = {};
-      temp.link = file.link().replace('localhost', 'psychosanchez.ru');
-      temp.type = file.type;
-      temp.name = file.name;
+      temp.link = files[i].link().replace('localhost', 'psychosanchez.ru');
+      temp.postLink = '/dump/' + files[i]._id;
+      temp.type = files[i].type;
+      temp.name = files[i].name;
       filesArray.push(temp);
-    });
+    }
+
     return filesArray;
   }
 });

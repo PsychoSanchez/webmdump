@@ -6,3 +6,7 @@
 .webm-trash > video {
     width: 500px;
 }
+
+.webm-trash > a {
+    display: block;
+}

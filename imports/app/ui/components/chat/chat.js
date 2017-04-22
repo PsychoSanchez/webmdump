@@ -10,10 +10,10 @@ import './chat.html';
 
 Meteor.subscribe('files.dump.all');
 
-Meteor.startup(()=>{
+Meteor.startup(() => {
   let messages = MessagesDB.find({}, {sort: {sendDate: -1}, limit: 15});
   messages.observeChanges({
-    addedBefore: function(id, object) {
+    addedBefore: function (id, object) {
       // setTimeout(function () {
       //   // console.log(Template.instance())
       //   // T.scrollTo(0, document.body.scrollHeight);
@@ -29,7 +29,7 @@ Template.messageWindow.helpers({
 });
 
 function updateDB() {
-  return MessagesDB.find({}, {skip: MessagesDB.find().count() - 15}) ;
+  return MessagesDB.find({}, {skip: MessagesDB.find().count() - 15});
 }
 
 Template.messageInput.events({
