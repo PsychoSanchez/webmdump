@@ -3,7 +3,7 @@
  */
 
 const PLAYBTN_STATES = {PLAY: 'css-play', PAUSE: 'css-pause'};
-const MUTEBTN_STATES = {MUTE: 'mute', UNMUTE: 'unmute'};
+const MUTEBTN_STATES = {MUTE: 'css-volume-off', UNMUTE: 'css-volume-on'};
 const VOLUME_CHANGE_STEP = 0.05;
 
 export class MediaPlayer {
@@ -17,8 +17,8 @@ export class MediaPlayer {
   }
 
   static changeButtonState({button, removeClass, addClass, title}) {
-    button.title = title;
-    button.innerHTML = title;
+    // button.title = title;
+    // button.innerHTML = title;
     $(button).removeClass(removeClass).addClass(addClass);
   };
 
@@ -87,7 +87,6 @@ export class MediaPlayer {
     });
 
   }
-
 
   /**
    * Play function
