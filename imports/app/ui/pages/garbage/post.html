@@ -2,8 +2,6 @@
     <div class="shit-post">
         <h1>{{webm.name}}</h1>
         <a href="/" class="home-link">На главную</a>
-        <video height="auto" autoplay controls="controls">
-            <source src="{{webm.link}}" type="{{webm.type}}"/>
-        </video>
+        {{> player dump=webm}}
     </div>
 </template>

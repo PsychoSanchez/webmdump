@@ -72,7 +72,7 @@ Template.uploadedFiles.helpers({
     _.forEach(files, file => {
       let temp = {};
       temp.link = file.link().replace('localhost', DOMAIN);
-      temp.postLink = '/dump/' + file._id;
+      temp.postLink = '/shitpost/' + file._id;
       temp.type = file.type;
       temp.name = file.name;
       filesArray.push(temp);

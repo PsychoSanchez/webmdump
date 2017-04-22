@@ -11,8 +11,8 @@ FlowRouter.route('/', {
   }
 });
 
-FlowRouter.route('/dump/:_id', {
-  name: 'dump.post',
+FlowRouter.route('/shitpost/:_id', {
+  name: 'shit.post',
   action(params, queryParams) {
     Meteor.subscribe('files.dump.all', () => {
       let webm = Dump.findOne({_id: params._id});
@@ -20,7 +20,7 @@ FlowRouter.route('/dump/:_id', {
         BlazeLayout.render('appMain', {
           main: 'post',
           webm: {
-            link: webm.link().replace('localhost:3000', DOMAIN),
+            link: webm.link().replace('localhost', DOMAIN),
             type: webm.type,
             name: webm.name
           }
