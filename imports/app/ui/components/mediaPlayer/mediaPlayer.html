@@ -1,13 +1,13 @@
 <template name="player">
   <div class="css-video-container-block">
-    <div class="css-video-container">
+    <div class="css-video-container" >
       <video class="media-player css-video" autoplay="{{dump.autoplay}}" data-src="{{dump.link}}" data-type="{{dump.type}}" tabindex="0">
         <source src="{{dump.link}}" type="{{dump.type}}">
       </video>
       <div class="player-controls css-controls">
-        <input type="range" class="duration" min="0" max="100" value="0" step="0.0001" title="progress"/>
+        <input tabindex="0" type="range" class="duration" min="0" max="100" value="0" step="0.0001" title="progress"/>
         <div class="css-controls-buttons">
-          <div class="play-button css-button css-button-play css-play">
+          <div tabindex="0" class="play-button css-button css-button-play css-play">
             <svg class="css-image-play" viewBox="0 0 41.999 41.999">
               <use xlink:href="/res/button-play.svg#Button"></use>
             </svg>
@@ -15,7 +15,7 @@
               <use xlink:href="/res/button-pause.svg#Button"></use>
             </svg>
           </div>
-          <div class="mute-button css-button css-button-volume css-volume-on">
+          <div tabindex="0" class="mute-button css-button css-button-volume css-volume-on">
             <svg class="css-image-volume-on" viewBox="0 0 459 459">
               <use xlink:href="/res/button-volume-on.svg#Button"></use>
             </svg>
@@ -26,7 +26,7 @@
 
           <div class="css-volume-range">
             <div class="slider">
-              <input type="range" min="0" max="100" title="volume" class="volume-slider"/>
+              <input tabindex="0" type="range" min="0" max="100" title="volume" class="volume-slider"/>
             </div>
           </div>
         </div>

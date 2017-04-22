@@ -51,22 +51,16 @@ Template.uploadForm.events({
 });
 
 Template.uploadedFiles.onCreated(function () {
-  this.webmsArray = new ReactiveVar(false);
+  this.webmsArray = new ReactiveVar([]);
   this.pages = new ReactiveVar(1);
-});
-
-Template.uploadedFiles.onDestroyed(function () {
-  HANDLE.stop();
-});
-
-Template.uploadedFiles.helpers({
-  dump() {
+  this.iter = 0;
+  this.autorun(() => {
     let isReady = HANDLE.ready();
     if (isReady) {
       let filesArray = [];
+      Template.instance().iter += 1;
       let pages = Template.instance().pages.get();
-      let fileCursor = Dump.find({}, {skip: Dump.find().count() - (WEBMS_PER_PAGE * pages)});
-      // let fileCursor = Dump.find({}, {limit: (WEBMS_PER_PAGE * pages)});
+      let fileCursor = Dump.find({}, {skip: Dump.find().count() - (WEBMS_PER_PAGE * pages + Template.instance().iter)});
       let files = fileCursor.each();
       _.forEach(files, file => {
         let temp = {};
@@ -77,8 +71,17 @@ Template.uploadedFiles.helpers({
         filesArray.push(temp);
       });
       Template.instance().webmsArray.set(filesArray);
-      return filesArray;
     }
+  });
+});
+
+Template.uploadedFiles.onDestroyed(function () {
+  HANDLE.stop();
+});
+
+Template.uploadedFiles.helpers({
+  dump() {
+    return Template.instance().webmsArray.get();
   }
 });
 

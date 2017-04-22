@@ -24,8 +24,10 @@ Template.player.events({
       e.preventDefault();
       player.togglePlayPause();
     } else if (e.keyCode === 38) {
+      e.preventDefault();
       player.changeVolume(true);
     } else if (e.keyCode === 40) {
+      e.preventDefault();
       player.changeVolume(false);
     } else if (e.keyCode === 37) {
       player.moveTime(5);
@@ -36,6 +38,13 @@ Template.player.events({
   'click .play-button'(e, tpl){
     let player = Template.instance().player.get();
     player.togglePlayPause();
+  },
+  'keydown .play-button'(e){
+    let player = Template.instance().player.get();
+    if (e.keyCode === 32 || e.keyCode === 13) {
+      e.preventDefault();
+      player.togglePlayPause();
+    }
   },
   'click .stop-button'(e, tpl){
     let player = Template.instance().player.get();
@@ -53,6 +62,13 @@ Template.player.events({
     let player = Template.instance().player.get();
     player.toggleMute();
   },
+  'keydown .mute-button'(e){
+    let player = Template.instance().player.get();
+    if (e.keyCode === 32 || e.keyCode === 13) {
+      e.preventDefault();
+      player.toggleMute();
+    }
+  },
   'click .replay-button'(e, tpl){
     let player = Template.instance().player.get();
     player.replayMedia();
@@ -68,5 +84,23 @@ Template.player.events({
   'input .duration'(e, tpl){
     let player = Template.instance().player.get();
     player.goToTime(e.target.value);
+  },
+  'keydown .volume-slider'(e, tpl){
+    let player = Template.instance().player.get();
+    if (e.keyCode === 38) {
+      e.preventDefault();
+      player.changeVolume(true);
+    } else if (e.keyCode === 40) {
+      e.preventDefault();
+      player.changeVolume(false);
+    }
+  },
+  'keydown .duration'(e, tpl){
+    let player = Template.instance().player.get();
+    if (e.keyCode === 37) {
+      player.moveTime(5);
+    } else if (e.keyCode === 39) {
+      player.moveTime(-5);
+    }
   }
 });
