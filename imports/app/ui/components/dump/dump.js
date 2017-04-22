@@ -53,33 +53,32 @@ Template.uploadForm.events({
 Template.uploadedFiles.onCreated(function () {
   this.webmsArray = new ReactiveVar(false);
   this.pages = new ReactiveVar(1);
-  this.isReady = new ReactiveVar(false);
-  Tracker.autorun(() => {
-    Template.instance().isReady.set(HANDLE.ready());
-    console.log(`Handle is ${Template.instance().isReady.get() ? 'ready' : 'not ready'}`);
-  });
+});
+
+Template.uploadedFiles.onDestroyed(function () {
+  HANDLE.stop();
 });
 
 Template.uploadedFiles.helpers({
   dump() {
-    let isReady = Template.instance().isReady.get();
-    // if(isReady){
-    let filesArray = [];
-    let pages = Template.instance().pages.get();
-    let fileCursor = Dump.find({}, {skip: Dump.find().count() - (WEBMS_PER_PAGE * pages)});
-    // let fileCursor = Dump.find({}, {limit: (WEBMS_PER_PAGE * pages)});
-    let files = fileCursor.each();
-    _.forEach(files, file => {
-      let temp = {};
-      temp.link = file.link().replace('localhost', DOMAIN);
-      temp.postLink = '/shitpost/' + file._id;
-      temp.type = file.type;
-      temp.name = file.name;
-      filesArray.push(temp);
-    });
-    Template.instance().webmsArray.set(filesArray);
-    return filesArray;
-    // }
+    let isReady = HANDLE.ready();
+    if (isReady) {
+      let filesArray = [];
+      let pages = Template.instance().pages.get();
+      let fileCursor = Dump.find({}, {skip: Dump.find().count() - (WEBMS_PER_PAGE * pages)});
+      // let fileCursor = Dump.find({}, {limit: (WEBMS_PER_PAGE * pages)});
+      let files = fileCursor.each();
+      _.forEach(files, file => {
+        let temp = {};
+        temp.link = file.link().replace('localhost', DOMAIN);
+        temp.postLink = '/shitpost/' + file._id;
+        temp.type = file.type;
+        temp.name = file.name;
+        filesArray.push(temp);
+      });
+      Template.instance().webmsArray.set(filesArray);
+      return filesArray;
+    }
   }
 });
 

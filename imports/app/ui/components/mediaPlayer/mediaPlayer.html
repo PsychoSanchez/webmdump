@@ -1,7 +1,7 @@
 <template name="player">
   <div class="css-video-container-block">
     <div class="css-video-container">
-      <video class="media-player css-video" data-src="{{dump.link}}" data-type="{{dump.type}}" tabindex="0">
+      <video class="media-player css-video" autoplay="{{dump.autoplay}}" data-src="{{dump.link}}" data-type="{{dump.type}}" tabindex="0">
         <source src="{{dump.link}}" type="{{dump.type}}">
       </video>
       <div class="player-controls css-controls">

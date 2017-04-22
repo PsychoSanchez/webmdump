@@ -11,6 +11,13 @@ FlowRouter.route('/', {
   }
 });
 
+FlowRouter.route('/dump/:_id', {
+  name: 'shit.post',
+  action(params, queryParams) {
+    FlowRouter.go('/shitpost/' + params._id);
+  }
+});
+
 FlowRouter.route('/shitpost/:_id', {
   name: 'shit.post',
   action(params, queryParams) {
@@ -22,7 +29,8 @@ FlowRouter.route('/shitpost/:_id', {
           webm: {
             link: webm.link().replace('localhost', DOMAIN),
             type: webm.type,
-            name: webm.name
+            name: webm.name,
+            autoplay: true
           }
         });
       } else {
