@@ -1,1 +1,1 @@
-export const DOMAIN = 'localhost';
+export const DOMAIN = 'psychosanchez.ru';
