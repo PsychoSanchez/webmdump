@@ -195,6 +195,14 @@ export class MediaPlayer {
    */
   setVolume(value) {
     this.player.volume = parseFloat(value / 100);
+    if (value < 0.05) {
+      MediaPlayer.changeButtonState({
+        button: this.muteBtn,
+        removeClass:  MUTEBTN_STATES.UNMUTE,
+        addClass: MUTEBTN_STATES.MUTE,
+        title: 'Unmute'
+      });
+    }
     this.volumeSlider.value = value;
     this.setMute(this.player.muted);
   }
@@ -207,13 +215,25 @@ export class MediaPlayer {
     let volume = this.player.volume;
     if (isIncrease) {
       volume += (this.player.volume >= 1) ? 0 : VOLUME_CHANGE_STEP;
-      if (volume > 1) {
+      if (volume >= 1) {
         volume = 1;
+        MediaPlayer.changeButtonState({
+          button: this.muteBtn,
+          removeClass:  MUTEBTN_STATES.UNMUTE ,
+          addClass:  MUTEBTN_STATES.MUTE,
+          title: 'Mute'
+        });
       }
     } else {
       volume -= (this.player.volume <= 0 ? 0 : VOLUME_CHANGE_STEP);
-      if (volume < 0) {
+      if (volume <= 0) {
         volume = 0;
+        MediaPlayer.changeButtonState({
+          button: this.muteBtn,
+          removeClass: MUTEBTN_STATES.MUTE,
+          addClass:  MUTEBTN_STATES.UNMUTE,
+          title: 'Unmute'
+        });
       }
     }
     this.player.volume = volume;
@@ -221,7 +241,6 @@ export class MediaPlayer {
 
   toggleMute() {
     this.setMute(!this.player.muted);
-    this.changeVolume(this.player.muted);
   };
 
   setMute(mute) {
