@@ -195,16 +195,13 @@ export class MediaPlayer {
    */
   setVolume(value) {
     this.player.volume = parseFloat(value / 100);
-    if (value < 0.05) {
-      MediaPlayer.changeButtonState({
-        button: this.muteBtn,
-        removeClass:  MUTEBTN_STATES.UNMUTE,
-        addClass: MUTEBTN_STATES.MUTE,
-        title: 'Unmute'
-      });
-    }
+    MediaPlayer.changeButtonState({
+      button: this.muteBtn,
+      removeClass: (value < 0.01) ? MUTEBTN_STATES.UNMUTE : MUTEBTN_STATES.MUTE,
+      addClass: (!value < 0.01) ? MUTEBTN_STATES.UNMUTE : MUTEBTN_STATES.MUTE,
+      title: (!value < 0.01) ? 'Mute' : 'Unmute'
+    });
     this.volumeSlider.value = value;
-    this.setMute(this.player.muted);
   }
 
   /**
