@@ -1,1 +1,1 @@
-export const DOMAIN = 'psychosanchez.ru:3000';
+export const DOMAIN = 'psychosanchez.ru';

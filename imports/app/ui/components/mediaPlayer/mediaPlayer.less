@@ -1,0 +1,149 @@
+
+@colorMain: #27586B;
+@colorBright: #B2D7E5;
+@colorShade: #092F3D;
+@colorPale: #578799;
+@colorDark: #000B0F;
+
+input:focus {
+    outline:none;
+}
+
+.css-video-container-block {
+  display: flex;
+  justify-content: center;
+
+  // .css-video, .css-controls {
+  //   display: flex;
+  //   justify-content: center;
+  // }
+
+  .css-controls {
+    background: @colorShade;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .css-controls-buttons {
+    display: flex;
+    flex-direction: row;
+  }
+
+  .css-controls-slider {
+    width: 100%;
+    heiht: 30px;
+  }
+
+  .css-video-container {
+    display: table;
+    font-size: 0;
+  }
+
+
+
+  .css-video {
+    min-width: 960px;
+    display: inline-block;
+  }
+
+
+  .css-play .css-image-play,
+  .css-pause .css-image-pause,
+  .css-volume-on .css-image-volume-on,
+  .css-volume-off .css-image-volume-off  {
+    display: block
+  }
+  .css-pause .css-image-play,
+  .css-play .css-image-pause,
+  .css-volume-on .css-image-volume-off,
+  .css-volume-off .css-image-volume-on {
+    display: none;
+  }
+
+  .css-pause {
+
+  }
+
+  .css-image-play {
+    width: 42px;
+    height: 42px;
+  }
+  .css-button {
+    width: 42px;
+    height: 42px;
+  }
+
+
+  .css-button {
+  	background-color: @colorShade;
+  	display:inline-block;
+  	cursor:pointer;
+  	fill: @colorPale;
+    padding: 10px;
+  }
+
+  .css-button:hover {
+    fill: @colorBright
+  }
+
+  body {
+    background-color: #f0f7ef;
+  }
+
+  .css-volume-range {
+    display: flex;
+    width: 100px;
+    justify-content: center;
+    flex-direction: column;
+  }
+
+  .slider {
+    width: 100%;
+  }
+
+  input[type="range"] {
+    -webkit-appearance: none !important;
+    width: 100%;
+    height: 15px;
+    background-color: @colorPale;
+    margin: auto;
+    transition: all 0.3s ease;
+  }
+  input[type="range"]:hover {
+    background-color: @colorBright;
+  }
+
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none !important;
+    width: 20px;
+    height: 20px;
+    background-color: transparent;
+    border-radius: 30px;
+    transition: all 0.5s ease;
+    background-color: @colorMain;
+  }
+
+  .css-volume-range input[type="range"]::-webkit-slider-thumb {
+    background-color: transparent;
+    background-image: url("res/peppa.png");
+  }
+
+  input[type="range"]::-webkit-slider-thumb:hover {
+    // background-color: @colorBright;
+  }
+  input[type="range"]::-webkit-slider-thumb:active {
+    box-shadow: 0px 0px 1px #3c6d59;
+  }
+
+  #rangevalue {
+    text-align: center;
+    font-family: "Quantico", sans-serif;
+    font-size: 18px;
+    display: block;
+    margin: auto;
+    padding: 10px 0px;
+    width: 100%;
+    color: #579E81;
+  }
+
+}
