@@ -59,15 +59,14 @@ Template.uploadedFiles.helpers({
     let fileCursor = Dump.find({}, {sort: {sendDate: -1}});
     let filesArray = [];
     let files = fileCursor.each();
-
-    for (let i = files.length - 1; i > 0; i--) {
+    _.forEach(files, file=>{
       let temp = {};
-      temp.link = files[i].link().replace('localhost:3000', DOMAIN);
-      temp.postLink = '/dump/' + files[i]._id;
-      temp.type = files[i].type;
-      temp.name = files[i].name;
+      temp.link = file.link().replace('localhost:3000', DOMAIN);
+      temp.postLink = '/dump/' + file._id;
+      temp.type = file.type;
+      temp.name = file.name;
       filesArray.push(temp);
-    }
+    });
     Template.instance().webmsArray.set(filesArray);
     return filesArray;
   }

@@ -10,3 +10,7 @@
 .webm-trash > a {
     display: block;
 }
+.uploaded-trash{
+    display:flex;
+    flex-direction:column-reverse;
+}

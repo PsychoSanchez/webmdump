@@ -10,9 +10,11 @@
 </template>
 
 <template name="uploadedFiles">
-    {{#each dump}}
-        {{> video}}
-    {{/each}}
+    <div class="uploaded-trash">
+        {{#each dump}}
+            {{> video}}
+        {{/each}}
+    </div>
 </template>
 
 <template name="video">
