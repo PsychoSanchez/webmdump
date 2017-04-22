@@ -75,10 +75,10 @@ Template.uploadedFiles.helpers({
 Template.uploadedFiles.events({
   'click video': function (e, template) {
     // TODO: instead of reroutong load video after preview
-    let webms = template.webmsArray.get();
-    let path = _.find(webms, webm =>{
-      return webm.link === e.toElement.currentSrc;
-    }).postLink;
-    FlowRouter.go(path)
+    // let webms = template.webmsArray.get();
+    // let path = _.find(webms, webm =>{
+    //   return webm.link === e.toElement.currentSrc;
+    // }).postLink;
+    // FlowRouter.go(path)
   }
 });

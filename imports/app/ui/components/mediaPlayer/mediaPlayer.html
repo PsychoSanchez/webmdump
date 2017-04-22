@@ -1,5 +1,5 @@
 <template name="player">
-    <video class="media-player" data-src="{{dump.link}}" data-type="{{dump.type}}" tabindex="0" controls>
+    <video class="media-player" data-src="{{dump.link}}" data-type="{{dump.type}}" tabindex="0">
         <source src="{{dump.link}}" type="{{dump.type}}">
     </video>
     <div class="player-controls">
@@ -11,6 +11,6 @@
         <button class="volume-dec-button volume-minus" title="decrease volume">Decrease volume</button>
         <button class="mute-button mute" title="mute">Mute</button>
         <button class="replay-button replay" title="replay">Replay</button>
-        <input type="range" class="duration" max="100" value="0" title="progress"/>0% played
+        <input type="range" class="duration" max="100" value="0" title="progress"/>
     </div>
 </template>
