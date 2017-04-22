@@ -7,6 +7,7 @@ import {Dump} from '../../../api/webmDump';
 import '../chat/chat.css'
 import './dump.html';
 import './dump.css';
+import {DOMAIN} from './localConfig'
 
 
 Meteor.subscribe('files.dump.all');
@@ -57,7 +58,7 @@ Template.uploadedFiles.helpers({
     let files = fileCursor.each();
     files.forEach(function (file) {
       let temp = {};
-      temp.link = file.link().replace('localhost', 'psychosanchez.ru');
+      temp.link = file.link().replace('localhost:3000', DOMAIN);
       temp.type = file.type;
       temp.name = file.name;
       filesArray.push(temp);

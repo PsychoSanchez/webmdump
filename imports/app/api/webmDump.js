@@ -10,7 +10,7 @@ const FILE =
 
 export const Dump = new FilesCollection({
   collectionName: 'Dump',
-  storagePath: 'C:/dump',
+  storagePath: 'D:/Code/Web/webmdump/webmstorage',
   downloadRoute: '/files/dump',
   allowClientCode: false,
   cacheControl: 'public, max-age=31536000',
