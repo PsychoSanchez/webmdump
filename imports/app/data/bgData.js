@@ -3,6 +3,5 @@
  */
 export const IMAGES = [
   "cheeki-breeki.jpg",
-  "bg.png",
   "angry_pussy.jpg"
 ];

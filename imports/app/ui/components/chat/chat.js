@@ -72,7 +72,7 @@ class Chat{
     console.log(collapsed);
     let action = (collapsed) ? 'show' : 'hide';
     $('.chat-block')[action]();
-    $('.toggle-chat-btn').html((collapsed) ? 'Show' : 'Hide');
+    $('.toggle-chat-btn').html((!collapsed) ? 'Show' : 'Hide');
     Session.set('chat-collapse', collapsed);
   }
 }
