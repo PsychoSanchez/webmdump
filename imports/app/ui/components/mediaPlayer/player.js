@@ -1,7 +1,7 @@
 /**
  * Created by Admin on 22.04.2017.
  */
-
+import {COOKIES} from '../../../api/cookies';
 const PLAYBTN_STATES = {PLAY: 'css-play', PAUSE: 'css-pause'};
 const MUTEBTN_STATES = {MUTE: 'css-volume-off', UNMUTE: 'css-volume-on'};
 const VOLUME_CHANGE_STEP = 0.05;
@@ -44,15 +44,16 @@ export class MediaPlayer {
    */
   initEvents() {
     this.player.controls = false;
+    this.volumeSlider.value = parseFloat(COOKIES.get('player-volume'));
 
     this.player.addEventListener('loadeddata', () => {
-      this.volumeSlider.value = this.player.volume * 100;
+      this.volumeSlider.value = parseFloat(COOKIES.get('player-volume'));
+      this.player.volume = parseFloat(COOKIES.get('player-volume'));
     });
     this.player.addEventListener('timeupdate', () => {
       this.updateProgressBar();
     });
     this.player.addEventListener('play', () => {
-      this.volumeSlider.value = this.player.volume * 100;
       MediaPlayer.changeButtonState({
         button: this.playBtn,
         removeClass: PLAYBTN_STATES.PLAY,
@@ -73,6 +74,8 @@ export class MediaPlayer {
       });
     }, false);
     this.player.addEventListener('volumechange', () => {
+      COOKIES.set('player-volume', this.player.volume);
+      console.log(COOKIES.get('player-volume'));
       this.setVolume(this.player.volume * 100);
     }, false);
 
