@@ -1,3 +1,14 @@
+<template name="chat">
+    <div class="chat-window">
+        <button class="toggle-chat-btn">Hide</button>
+        <div class="chat-block">
+            <div class="messages-wrapper">
+                <h1>Тебе здесь всегда рады!</h1>
+                {{> messageWindow}} {{> messageInput}}
+            </div>
+        </div>
+    </div>
+</template>
 <template name="messageInput">
     <form class="message-input send-message">
         <input type="text" name="name" autocomplete="off"
