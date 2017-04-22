@@ -50,6 +50,10 @@ Template.uploadForm.events({
   }
 });
 
+Template.uploadedFiles.onCreated(function() {
+  this.webmsArray = new ReactiveVar(false);
+});
+
 Template.uploadedFiles.helpers({
   dump() {
     let fileCursor = Dump.find({}, {sort: {sendDate: -1}});
@@ -64,7 +68,18 @@ Template.uploadedFiles.helpers({
       temp.name = files[i].name;
       filesArray.push(temp);
     }
-
+    Template.instance().webmsArray.set(filesArray);
     return filesArray;
+  }
+});
+
+Template.uploadedFiles.events({
+  'click video': function (e, template) {
+    // TODO: instead of reroutong load video after preview
+    let webms = template.webmsArray.get();
+    let path = _.find(webms, webm =>{
+      return webm.link === e.toElement.currentSrc;
+    }).postLink;
+    FlowRouter.go(path)
   }
 });
