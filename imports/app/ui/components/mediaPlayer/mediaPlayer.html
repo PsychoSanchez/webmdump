@@ -5,14 +5,14 @@
         <source src="{{dump.link}}" type="{{dump.type}}">
       </video>
       <div class="player-controls css-controls">
-        <input type="range" class="duration" max="100" value="0" title="progress"/>0% played
+        <input type="range" class="duration" min="0" max="100" value="0" step="0.0001" title="progress"/>
         <div class="css-controls-buttons">
           <div class="play-button css-button css-button-play css-play">
             <svg class="css-image-play" viewBox="0 0 41.999 41.999">
               <use xlink:href="res/button-play.svg#Button"></use>
             </svg>
-            <svg class="css-image-pause" viewBox="0 0 232.679 232.679">
-              <use xlink:href="res/button-play.svg#Button"></use>
+            <svg class="css-image-pause" viewBox="0 0 438.536 438.536">
+              <use xlink:href="res/button-pause.svg#Button"></use>
             </svg>
           </div>
           <div class="mute-button css-button css-button-volume css-volume-on">
@@ -20,7 +20,7 @@
               <use xlink:href="res/button-volume-on.svg#Button"></use>
             </svg>
             <svg class="css-image-volume-off" viewBox="0 0 461.55 461.55">
-              <use xlink:href="res/button-volume-on.svg#Button"></use>
+              <use xlink:href="res/button-volume-off.svg#Button"></use>
             </svg>
           </div>
 
