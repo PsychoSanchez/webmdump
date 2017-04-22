@@ -11,17 +11,17 @@
 
 <template name="uploadedFiles">
     <div class="uploaded-trash">
-        {{#each dump}}
-            {{> video}}
+        {{#each d in dump}}
+            {{> player dump=d}}
         {{/each}}
     </div>
 </template>
 
 <template name="video">
-    <div class="webm-trash">
-        <!--<a href="{{postLink}}">Ссылка на пост</a>-->
-        <video height="auto" controls="controls">
-            <source src="{{link}}" type="{{type}}"/>
-        </video>
-    </div>
+<div class="webm-trash">
+    <!--<a href="{{postLink}}">Ссылка на пост</a>-->
+    <video height="auto" controls="controls">
+        <source src="{{link}}" type="{{type}}"/>
+    </video>
+</div>
 </template>

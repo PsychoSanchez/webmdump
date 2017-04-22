@@ -8,8 +8,6 @@ import './chat.css';
 import './chat.html';
 
 
-Meteor.subscribe('files.dump.all');
-
 Meteor.startup(() => {
   let messages = MessagesDB.find({}, {sort: {sendDate: -1}, limit: 15});
   messages.observeChanges({
@@ -35,7 +33,6 @@ function updateDB() {
 Template.messageInput.events({
   'submit .send-message'(event){
     event.preventDefault();
-    // window.scrollTo(0, document.body.scrollHeight);
 
     let text = event.target.message.value;
     let name = event.target.name.value;
@@ -46,11 +43,11 @@ Template.messageInput.events({
       sendDate: new Date()
     });
 
-    window.scrollTo(0, document.body.scrollHeight);
     event.target.message.value = '';
     return false;
   }
 });
+
 Template.chat.onCreated(function () {
   this.visibility = new ReactiveVar(!!Session.get('chat-collapse'));
 });
@@ -69,7 +66,6 @@ Template.chat.events({
 
 class Chat{
   static setCollapsed(collapsed){
-    console.log(collapsed);
     let action = (collapsed) ? 'show' : 'hide';
     $('.chat-block')[action]();
     $('.toggle-chat-btn').html((!collapsed) ? 'Show' : 'Hide');

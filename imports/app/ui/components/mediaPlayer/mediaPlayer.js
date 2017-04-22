@@ -1,22 +1,26 @@
 /**
  * Created by Admin on 21.04.2017.
  */
+import {Meteor} from 'meteor/meteor';
+import {Template} from 'meteor/templating';
+import './mediaPlayer.less';
+import './mediaPlayer.html';
 
-export class MediaPlayer {
-  constructor() {
+class MediaPlayer {
+  constructor(player, controls) {
     this.playlist = [];
     this.curVideo = 0;
-    this.player = document.querySelector('#media-player');
-    this.playBtn = document.querySelector('#play-pause-button');
-    this.stopBtn = document.querySelector('#stop-button');
-    this.incVolumeBtn = document.querySelector('#volume-inc-button');
-    this.decVolumeBtn = document.querySelector('#volume-dec-button');
-    this.muteBtn = document.querySelector('#mute-button');
-    this.replayBtn = document.querySelector('#replay-button');
-    this.progressBar = document.querySelector('#progress-bar');
-    this.videoUrl = document.querySelector('#video-url');
-    this.addVideoBtn = document.querySelector('#add-video');
-    this.playlist_list = document.querySelector('.playlist_list');
+    this.player = $('.media-player');
+    this.playBtn = $('.play-pause-button');
+    this.stopBtn = Template.find('#stop-button');
+    this.incVolumeBtn = Template.find('#volume-inc-button');
+    this.decVolumeBtn = Template.find('#volume-dec-button');
+    this.muteBtn = Template.find('#mute-button');
+    this.replayBtn =Template.find('#replay-button');
+    this.progressBar =Template.find('#progress-bar');
+    this.videoUrl = Template.find('#video-url');
+    this.addVideoBtn = Template.find('#add-video');
+    this.playlist_list = Template.find('.playlist_list');
   }
 
   init() {
@@ -198,3 +202,19 @@ export class MediaPlayer {
   };
 }
 
+Template.player.onCreated(function () {
+  console.log(arguments, Template.instance());
+});
+
+Template.player.events({
+  'keydown video'(event, template){
+    if (e.keyCode === 32 || e.keyCode === 13) {
+      e.preventDefault();
+      self.togglePlayPause();
+    } else if (e.keyCode === 38) {
+      self.changeVolume(true);
+    } else if (e.keyCode === 40) {
+      self.changeVolume(false);
+    }
+  }
+});
