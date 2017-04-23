@@ -2,6 +2,7 @@
  * Created by Admin on 22.04.2017.
  */
 import {COOKIES} from '../../../api/cookies';
+import {Template} from 'meteor/templating';
 const PLAYBTN_STATES = {PLAY: 'css-play', PAUSE: 'css-pause'};
 const MUTEBTN_STATES = {MUTE: 'css-volume-off', UNMUTE: 'css-volume-on'};
 const VOLUME_CHANGE_STEP = 0.05;
@@ -27,6 +28,7 @@ export class MediaPlayer {
    * @param container
    */
   init(container) {
+    this.container = container;
     this.player = container.find('.media-player');
     this.playBtn = container.find('.play-button');
     this.stopBtn = container.find('.stop-button');
@@ -37,6 +39,11 @@ export class MediaPlayer {
     this.replayBtn = container.find('.replay-button');
     this.progressBar = container.find('.duration');
     this.initEvents();
+
+    if (this.player.currentSrc === "") {
+      this.player.src = $(this.player).attr('data-src');
+      this.player.load();
+    }
   };
 
   /**
@@ -75,7 +82,6 @@ export class MediaPlayer {
     }, false);
     this.player.addEventListener('volumechange', () => {
       COOKIES.set('player-volume', this.player.volume);
-      console.log(COOKIES.get('player-volume'));
       this.setVolume(this.player.volume * 100);
     }, false);
 
@@ -88,7 +94,22 @@ export class MediaPlayer {
       this.onplaying = true;
       this.onpause = false;
     });
-
+    this.player.addEventListener('error', (e) => {
+      e.stopImmediatePropagation();
+      this.container.find('.css-video-container-block').innerHTML = '';
+      Blaze.render(Template.notFound, this.container.find('.css-video-container-block'));
+    });
+    this.player.addEventListener('stalled', (e) => {
+      console.log(e);
+      this.container.find('.css-video-container-block').innerHTML = '';
+    });
+    this.player.addEventListener('suspend', (e) => {
+      console.log(e);
+      e.stopImmediatePropagation();
+      let error = this.player.error();
+      console.log('error!', error.code, error.type , error.message);
+      this.container.find('.css-video-container-block').innerHTML = '';
+    })
   }
 
   /**
