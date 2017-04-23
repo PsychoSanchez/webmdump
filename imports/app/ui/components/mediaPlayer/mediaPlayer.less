@@ -1,4 +1,3 @@
-
 @colorMain: #27586B;
 @colorBright: #B2D7E5;
 @colorShade: #092F3D;
@@ -6,13 +5,88 @@
 @colorDark: #000B0F;
 
 input:focus {
-    outline:none;
+  outline: none;
+}
+
+:-webkit-full-screen.css-video-container-block {
+  background: black;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  .media-player:hover {
+    cursor: none;
+  }
+  .css-video-container {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    height: inherit;
+    .media-player {
+      flex: 1;
+    }
+  }
+}
+
+:-moz-full-screen.css-video-container-block {
+  background: black;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  .css-video-container {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    height: inherit;
+    .media-player {
+      flex: 1;
+    }
+  }
+}
+
+.css-video-container-block:fullscreen {
+  background: black;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  .css-video-container {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    height: inherit;
+    .media-player {
+      flex: 1;
+    }
+  }
+
+}
+
+.css-video-container-block.full-screen {
+  background: black;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+
+  .css-video-container {
+    display: flex;
+    flex-direction: column;
+    width: inherit;
+    height: inherit;
+
+    .media-player {
+      flex: 1;
+    }
+  }
 }
 
 .css-video-container-block {
   display: flex;
   justify-content: center;
-
   // .css-video, .css-controls {
   //   display: flex;
   //   justify-content: center;
@@ -22,16 +96,21 @@ input:focus {
     background: @colorShade;
     display: flex;
     flex-direction: column;
+    -webkit-transition: height 1s ease-out 0.5s;
+    -moz-transition: height 1s ease-out 0.5s;
+    -o-transition: height 1s ease-out 0.5s;
+    transition: height 1s ease-out 0.5s;
   }
 
   .css-controls-buttons {
     display: flex;
     flex-direction: row;
+
   }
 
   .css-controls-slider {
     width: 100%;
-    heiht: 30px;
+    height: 30px;
   }
 
   .css-video-container {
@@ -44,17 +123,28 @@ input:focus {
     display: inline-block;
   }
 
+  .css-link {
+    margin-left: auto;
+
+  }
+  .css-button-full-screen {
+  }
+
   .css-play .css-image-play,
   .css-pause .css-image-pause,
   .css-volume-on .css-image-volume-on,
-  .css-volume-off .css-image-volume-off  {
+  .css-volume-off .css-image-volume-off,
+  .css-full-screen-on .css-image-full-screen-on,
+  .css-full-screen-off .css-image-full-screen-off {
     display: block;
   }
 
   .css-pause .css-image-play,
   .css-play .css-image-pause,
   .css-volume-on .css-image-volume-off,
-  .css-volume-off .css-image-volume-on {
+  .css-volume-off .css-image-volume-on,
+  .css-full-screen-on .css-image-full-screen-on,
+  .css-full-screen-off .css-image-full-screen-off {
     display: none;
   }
 
@@ -67,12 +157,11 @@ input:focus {
     height: auto;
   }
 
-
   .css-button {
-  	background-color: @colorShade;
-  	display:inline-block;
-  	cursor:pointer;
-  	fill: @colorPale;
+    background-color: @colorShade;
+    display: inline-block;
+    cursor: pointer;
+    fill: @colorPale;
     padding: 10px;
   }
 
@@ -112,7 +201,6 @@ input:focus {
     width: 25px;
     height: 25px;
     border-radius: 30px;
-    background-color: transparent;
     transition: all 0.5s ease;
     background-color: @colorMain;
     -webkit-user-select: none;

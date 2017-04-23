@@ -29,6 +29,7 @@ export class MediaPlayer {
    */
   init(container) {
     this.container = container;
+    this.fsContainer = container.find('.css-video-container-block');
     this.player = container.find('.media-player');
     this.playBtn = container.find('.play-button');
     this.stopBtn = container.find('.stop-button');
@@ -51,11 +52,13 @@ export class MediaPlayer {
    */
   initEvents() {
     this.player.controls = false;
-    this.volumeSlider.value = parseFloat(COOKIES.get('player-volume'));
+    let vol = parseFloat(COOKIES.get('player-volume'));
+    vol = isNaN(vol) ? 1 : vol;
+    this.volumeSlider.value = vol * 100;
 
     this.player.addEventListener('loadeddata', () => {
-      this.volumeSlider.value = parseFloat(COOKIES.get('player-volume'));
-      this.player.volume = parseFloat(COOKIES.get('player-volume'));
+      this.volumeSlider.value = vol * 100;
+      this.player.volume = vol;
     });
     this.player.addEventListener('timeupdate', () => {
       this.updateProgressBar();
@@ -144,6 +147,9 @@ export class MediaPlayer {
     return !(ableToPlay === '');
   };
 
+  /**
+   * Method for toggling play/pause button
+   */
   togglePlayPause() {
     let state = this.player.paused || this.player.ended;
     if (state) {
@@ -160,12 +166,42 @@ export class MediaPlayer {
     });
   };
 
+  /**
+   * Method for toggling fullscreen
+   */
+  toggleFullScreen() {
+    if (!document.fullscreenElement &&    // alternative standard method
+      !document.mozFullScreenElement && !document.webkitFullscreenElement)  // current working methods
+    {
+      if (this.fsContainer.requestFullscreen) {
+        this.fsContainer.requestFullscreen();
+      } else if (this.fsContainer.mozRequestFullScreen) {
+        this.fsContainer.mozRequestFullScreen();
+      } else if (this.fsContainer.webkitRequestFullscreen) {
+        this.fsContainer.webkitRequestFullscreen();
+      }
+      // $(this.fsContainer).addClass('full-screen');
+    } else {
+      if (document.cancelFullScreen) {
+        document.cancelFullScreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitCancelFullScreen) {
+        document.webkitCancelFullScreen();
+      }
+      // $(this.fsContainer).removeClass('full-screen');
+    }
+  }
 
   stop() {
     this.pause();
     this.player.currentTime = 0;
   };
 
+  /**
+   * Goto frame
+   * @param value (In percents)
+   */
   goToTime(value) {
     let paused = this.player.paused;
     this.pause();
@@ -177,14 +213,14 @@ export class MediaPlayer {
     }, 0);
   }
 
+  /**
+   * Moves timeline to delta
+   * @param delta
+   */
   moveTime(delta) {
     let paused = this.player.paused;
     this.pause();
     let newTime = this.player.currentTime - delta;
-    // if (newTime > this.player.duration) {
-    //   this.nextVideo();
-    //   return;
-    // }
 
     if (newTime < 0) {
       newTime = 0;

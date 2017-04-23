@@ -2,24 +2,21 @@
  * Created by Admin on 21.04.2017.
  */
 import {FilesCollection} from 'meteor/ostrio:files';
+import * as VARS from './localStorageVars';
 
-const FILE =
-  {
-    SIZE: 20971520
-  };
 
 export const Dump = new FilesCollection({
   collectionName: 'Dump',
-  storagePath: 'C:/dump',
-  downloadRoute: '/files/dump',
+  storagePath: VARS.STORAGE_PATH,
+  downloadRoute: VARS.DOWNLOAD_ROUTE,
   allowClientCode: false,
   cacheControl: 'public, max-age=31536000',
   onBeforeUpload: function (file) {
     // Allow upload files under 10MB, and only in png/jpg/jpeg formats
-    if (file.size <= FILE.SIZE && /webm|mp4|3gp/i.test(file.extension)) {
+    if (file.size <= VARS.FILE.SIZE && /webm|mp4|3gp/i.test(file.extension)) {
       return true;
     } else {
-      return 'Please upload image, with size equal or less than 10MB';
+      return 'Please upload image, with size equal or less than 20MB';
     }
   },
   downloadCallback: function (fileObj) {

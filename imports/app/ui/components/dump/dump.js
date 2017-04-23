@@ -52,35 +52,80 @@ Template.uploadForm.events({
 
 Template.uploadedFiles.onCreated(function () {
   this.webmsArray = new ReactiveVar([]);
-  this.pages = new ReactiveVar(1);
-  this.iter = 0;
+  this.pages = new ReactiveVar(0);
+  this.addedWebms = 0;
+  this.webms = [];
+
+  this.updatePage = (page) => {
+    let webms = this.webms;
+    webms[page.index] = page.files;
+    this.webms = webms;
+    this.webmsArray.set(webms);
+  };
+
+  // new files tracker, Actually this tracker is full of shit
+  // TODO: Add server state after files uploaded and subscribe to it
   this.autorun(() => {
+    // Updates every time when file added
     let isReady = HANDLE.ready();
     if (isReady) {
-      let filesArray = [];
-      Template.instance().iter += 1;
-      let pages = Template.instance().pages.get();
-      let fileCursor = Dump.find({}, {skip: Dump.find().count() - (WEBMS_PER_PAGE * pages + Template.instance().iter)});
-      let files = fileCursor.each();
-      _.forEach(files, file => {
-        let temp = {};
-        temp.link = file.link().replace('localhost', DOMAIN);
-        temp.postLink = '/shitpost/' + file._id;
-        temp.type = file.type;
-        temp.name = file.name;
-        filesArray.push(temp);
-      });
-      Template.instance().webmsArray.set(filesArray);
+      let cursor = Dump.find({}, {skip: Dump.find().count() - (WEBMS_PER_PAGE + this.addedWebms)});
+      this.addedWebms += 1;
+      let page = createPage(cursor, 0);
+      this.updatePage(page);
     }
   });
+
+  // Pages tracker
+  this.autorun(() => {
+
+    let isReady = HANDLE.ready();
+    if (isReady) {
+      let pageNum = this.pages.get();
+      if (pageNum === 0) {
+        return;
+      }
+      let skip = Dump.find().count() - (WEBMS_PER_PAGE * ( pageNum + 1) + this.addedWebms);
+      let cursor = Dump.find({}, {skip: skip, limit: WEBMS_PER_PAGE});
+      let page = createPage(cursor, pageNum);
+      this.updatePage(page);
+    }
+  })
 });
 
+function createPage(cursor, pageNum) {
+  let page = {};
+  page.index = pageNum;
+  page.files = [];
+  let files = cursor.each();
+  _.forEach(files, file => {
+    let temp = {};
+    temp.link = file.link().replace('localhost', DOMAIN);
+    temp.postLink = '/shitpost/' + file._id;
+    temp.type = file.type;
+    temp.name = file.name;
+    page.files.push(temp);
+  });
+  return page;
+}
 Template.uploadedFiles.onDestroyed(function () {
   HANDLE.stop();
+  $(window).off("scroll", this.scrollHandler);
+});
+
+Template.uploadedFiles.onRendered(function () {
+  this.scrollHandler = () => {
+    if ($(window).scrollTop() + $(window).height() === $(document).height()) {
+      if (Dump.find().count() > WEBMS_PER_PAGE * (this.pages.get())) {
+        this.pages.set(this.pages.get() + 1);
+      }
+    }
+  };
+  $(window).scroll(this.scrollHandler);
 });
 
 Template.uploadedFiles.helpers({
-  dump() {
+  pages() {
     return Template.instance().webmsArray.get();
   }
 });

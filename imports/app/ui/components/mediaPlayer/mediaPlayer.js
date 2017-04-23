@@ -18,6 +18,14 @@ Template.player.onRendered(function () {
 });
 
 Template.player.events({
+  'click .media-player'(e, tpl){
+    let player = Template.instance().player.get();
+    player.togglePlayPause();
+  },
+  'dblclick .media-player'(e, tpl){
+    let player = Template.instance().player.get();
+    player.toggleFullScreen();
+  },
   'keydown .media-player'(e, template){
     let player = Template.instance().player.get();
     if (e.keyCode === 32 || e.keyCode === 13) {
@@ -73,17 +81,9 @@ Template.player.events({
     let player = Template.instance().player.get();
     player.replayMedia();
   },
-  'click .media-player'(e, tpl){
-    let player = Template.instance().player.get();
-    player.togglePlayPause();
-  },
   'input .volume-slider'(e, tpl){
     let player = Template.instance().player.get();
     player.setVolume(e.target.value);
-  },
-  'input .duration'(e, tpl){
-    let player = Template.instance().player.get();
-    player.goToTime(e.target.value);
   },
   'keydown .volume-slider'(e, tpl){
     let player = Template.instance().player.get();
@@ -95,6 +95,10 @@ Template.player.events({
       player.changeVolume(false);
     }
   },
+  'input .duration'(e, tpl){
+    let player = Template.instance().player.get();
+    player.goToTime(e.target.value);
+  },
   'keydown .duration'(e, tpl){
     let player = Template.instance().player.get();
     if (e.keyCode === 37) {
@@ -102,5 +106,18 @@ Template.player.events({
     } else if (e.keyCode === 39) {
       player.moveTime(-5);
     }
+  },
+  'click .fullscreen-button'(e, tpl){
+    let player = Template.instance().player.get();
+    player.toggleFullScreen();
+  },
+
+  'keydown .fullscreen-button'(e, tpl){
+    let player = Template.instance().player.get();
+    if (e.keyCode === 32 || e.keyCode === 13) {
+      e.preventDefault();
+      player.toggleFullScreen();
+    }
   }
+
 });
