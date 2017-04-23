@@ -100,15 +100,8 @@ export class MediaPlayer {
       Blaze.render(Template.notFound, this.container.find('.css-video-container-block'));
     });
     this.player.addEventListener('stalled', (e) => {
-      console.log(e);
-      this.container.find('.css-video-container-block').innerHTML = '';
     });
     this.player.addEventListener('suspend', (e) => {
-      console.log(e);
-      e.stopImmediatePropagation();
-      let error = this.player.error();
-      console.log('error!', error.code, error.type , error.message);
-      this.container.find('.css-video-container-block').innerHTML = '';
     })
   }
 
