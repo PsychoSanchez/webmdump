@@ -9,8 +9,6 @@ import './dump.less';
 import {DOMAIN} from '../../../data/localConfig'
 const WEBMS_PER_PAGE = 10;
 
-const HANDLE = Meteor.subscribe('files.dump.all');
-
 Template.uploadForm.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
 });
@@ -50,49 +48,6 @@ Template.uploadForm.events({
   }
 });
 
-Template.uploadedFiles.onCreated(function () {
-  this.webmsArray = new ReactiveVar([]);
-  this.pages = new ReactiveVar(0);
-  this.addedWebms = 0;
-  this.webms = [];
-
-  this.updatePage = (page) => {
-    let webms = this.webms;
-    webms[page.index] = page.files;
-    this.webms = webms;
-    this.webmsArray.set(webms);
-  };
-
-  // new files tracker, Actually this tracker is full of shit
-  // TODO: Add server state after files uploaded and subscribe to it
-  this.autorun(() => {
-    // Updates every time when file added
-    let isReady = HANDLE.ready();
-    if (isReady) {
-      let cursor = Dump.find({}, {skip: Dump.find().count() - (WEBMS_PER_PAGE + this.addedWebms)});
-      this.addedWebms += 1;
-      let page = createPage(cursor, 0);
-      this.updatePage(page);
-    }
-  });
-
-  // Pages tracker
-  this.autorun(() => {
-
-    let isReady = HANDLE.ready();
-    if (isReady) {
-      let pageNum = this.pages.get();
-      if (pageNum === 0) {
-        return;
-      }
-      let skip = Dump.find().count() - (WEBMS_PER_PAGE * ( pageNum + 1) + this.addedWebms);
-      let cursor = Dump.find({}, {skip: skip, limit: WEBMS_PER_PAGE});
-      let page = createPage(cursor, pageNum);
-      this.updatePage(page);
-    }
-  })
-});
-
 function createPage(cursor, pageNum) {
   let page = {};
   page.index = pageNum;
@@ -108,9 +63,50 @@ function createPage(cursor, pageNum) {
   });
   return page;
 }
-Template.uploadedFiles.onDestroyed(function () {
-  HANDLE.stop();
-  $(window).off("scroll", this.scrollHandler);
+
+Template.uploadedFiles.onCreated(function () {
+  this.webmsArray = new ReactiveVar([]);
+  this.pages = new ReactiveVar(0);
+  this.addedWebms = 0;
+  this.webms = [];
+
+  this.updatePage = (page) => {
+    let webms = this.webms;
+    webms[page.index] = page.files;
+    this.webms = webms;
+    this.webmsArray.set(webms);
+  };
+
+  this.autorun(() => {
+    if (FlowRouter.current()) {
+      this.cursorHandle = Meteor.subscribe('files.dump.all');
+    }
+  });
+  // new files tracker, Actually this tracker is full of shit
+  // TODO: Add server state after files uploaded and subscribe to it
+  this.autorun(() => {
+    // Updates every time when file added
+    if (this.cursorHandle.ready()) {
+      let cursor = Dump.find({}, {skip: Dump.find().count() - (WEBMS_PER_PAGE + this.addedWebms)});
+      this.addedWebms += 1;
+      let page = createPage(cursor, 0);
+      this.updatePage(page);
+    }
+  });
+
+  // Pages tracker
+  this.autorun(() => {
+    if (this.cursorHandle.ready()) {
+      let pageNum = this.pages.get();
+      if (pageNum === 0) {
+        return;
+      }
+      let skip = Dump.find().count() - (WEBMS_PER_PAGE * ( pageNum + 1) + this.addedWebms);
+      let cursor = Dump.find({}, {skip: skip, limit: WEBMS_PER_PAGE});
+      let page = createPage(cursor, pageNum);
+      this.updatePage(page);
+    }
+  });
 });
 
 Template.uploadedFiles.onRendered(function () {
@@ -122,6 +118,16 @@ Template.uploadedFiles.onRendered(function () {
     }
   };
   $(window).scroll(this.scrollHandler);
+});
+
+
+Template.uploadedFiles.onDestroyed(function () {
+  this.webmsArray.set([]);
+  this.pages.set(0);
+  this.addedWebms = 0;
+  this.webms = [];
+  this.cursorHandle.stop();
+  $(window).off("scroll", this.scrollHandler);
 });
 
 Template.uploadedFiles.helpers({
