@@ -39,6 +39,7 @@ FlowRouter.route('/random', {
         main: 'post',
         webm: {
           link: webm.link().replace('localhost', DOMAIN),
+          postLink: '/shitpost/' + webm._id,
           type: webm.type,
           name: webm.name,
           autoplay: true
