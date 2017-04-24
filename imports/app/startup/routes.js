@@ -18,6 +18,37 @@ FlowRouter.route('/dump/:_id', {
   }
 });
 
+
+function rollWebm() {
+  let length = Dump.find().count();
+  let index = Math.floor(Math.random() * length);
+  let webm = Dump.find({}, {skip: index, limit: 1}).each();
+
+  return webm[0];
+}
+
+FlowRouter.route('/random', {
+  name: 'random',
+  action(params){
+    Meteor.subscribe('files.dump.all', () => {
+      let webm = rollWebm();
+      while (!webm) {
+        webm = rollWebm();
+      }
+      BlazeLayout.render('appMain', {
+        main: 'post',
+        webm: {
+          link: webm.link().replace('localhost', DOMAIN),
+          type: webm.type,
+          name: webm.name,
+          autoplay: true
+        }
+      });
+    });
+  }
+});
+
+
 FlowRouter.route('/shitpost/:_id', {
   name: 'shit.post',
   action(params, queryParams) {
