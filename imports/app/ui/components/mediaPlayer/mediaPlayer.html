@@ -1,54 +1,59 @@
 <template name="player">
   <div class="css-video-container-block">
-    <div class="css-video-container">
-      <video class="media-player css-video" autoplay="{{dump.autoplay}}"
-             data-src="{{dump.link}}" data-type="{{dump.type}}" tabindex="0">
-        <source src="" type="{{dump.type}}">
-      </video>
-      <div class="player-controls css-controls">
-        <input tabindex="0" type="range" class="duration" min="0" max="100"
-               value="0" step="0.0001" title="progress"/>
-        <div class="css-controls-buttons">
-          <div tabindex="0"
-               class="play-button css-button css-button-play css-play">
-            <svg class="css-image-play" viewBox="0 0 41.999 41.999">
-              <use xlink:href="/res/button-play.svg#Button"></use>
-            </svg>
-            <svg class="css-image-pause" viewBox="0 0 438.536 438.536">
-              <use xlink:href="/res/button-pause.svg#Button"></use>
-            </svg>
-          </div>
-          <div tabindex="0"
-               class="mute-button css-button css-button-volume css-volume-on">
-            <svg class="css-image-volume-on" viewBox="0 0 459 459">
-              <use xlink:href="/res/button-volume-on.svg#Button"></use>
-            </svg>
-            <svg class="css-image-volume-off" viewBox="0 0 461.55 461.55">
-              <use xlink:href="/res/button-volume-off.svg#Button"></use>
-            </svg>
-          </div>
-
-          <div class="css-volume-range">
-            <div class="slider">
-              <input tabindex="0" type="range" min="0" max="100" title="volume"
-                     class="volume-slider"/>
+    <div class="css-full-screen-video-container">
+      <div class="css-video-container">
+        <video class="media-player css-video" autoplay="{{dump.autoplay}}"
+               data-src="{{dump.link}}" data-type="{{dump.type}}" tabindex="0">
+          <source src="" type="{{dump.type}}">
+        </video>
+        <div class="player-controls css-controls">
+          <input tabindex="0" type="range" class="duration" min="0" max="100"
+                 value="0" step="0.0001" title="progress"/>
+          <div class="css-controls-buttons">
+            <div tabindex="0"
+                 class="play-button css-button css-button-play css-play">
+              <svg class="css-image-play" viewBox="0 0 41.999 41.999">
+                <use xlink:href="/res/button-play.svg#Button"></use>
+              </svg>
+              <svg class="css-image-pause" viewBox="0 0 438.536 438.536">
+                <use xlink:href="/res/button-pause.svg#Button"></use>
+              </svg>
             </div>
-          </div>
+            <div tabindex="0"
+                 class="mute-button css-button css-button-volume css-volume-on">
+              <svg class="css-image-volume-on" viewBox="0 0 459 459">
+                <use xlink:href="/res/button-volume-on.svg#Button"></use>
+              </svg>
+              <svg class="css-image-volume-off" viewBox="0 0 461.55 461.55">
+                <use xlink:href="/res/button-volume-off.svg#Button"></use>
+              </svg>
+            </div>
 
-          <a href="{{dump.postLink}}" tabindex="0"
+            <div class="css-volume-range">
+              <div class="slider">
+                <input tabindex="0" type="range" min="0" max="100"
+                       title="volume"
+                       class="volume-slider"/>
+              </div>
+            </div>
+
+            <a href="{{dump.postLink}}" tabindex="0"
                class="link-button css-button css-button-link css-link">
-            <svg class="css-link"  viewBox="0 0 482.136 482.135">
-              <use xlink:href="/res/button-link.svg#LinkIcon"></use>
-            </svg>
-          </a>
-          <div tabindex="0"
-               class="fullscreen-button css-button css-button-full-screen css-full-screen-on">
-            <svg class="css-image-full-screen-on"  viewBox="0 0 533.333 533.333">
-              <use xlink:href="/res/arrows-expand.svg#FSArrow"></use>
-            </svg>
-            <svg class="css-image-full-screen-off" viewBox="0 0 533.333 533.333">
-              <use xlink:href="/res/arrows-expand.svg#FSArrow"></use>
-            </svg>
+              <svg class="css-link" viewBox="0 0 482.136 482.135">
+                <use xlink:href="/res/button-link.svg#LinkIcon"></use>
+              </svg>
+            </a>
+            <div tabindex="0"
+                 class="fullscreen-button css-button css-button-full-screen css-full-screen-on">
+              <svg class="css-image-full-screen-on"
+                   viewBox="0 0 533.333 533.333">
+                <use xlink:href="/res/arrows-expand.svg#FSArrow"></use>
+              </svg>
+              <svg class="css-image-full-screen-off"
+                   viewBox="0 0 533.333 533.333">
+                <use xlink:href="/res/arrows-expand.svg#FSArrow"></use>
+              </svg>
+            </div>
           </div>
         </div>
       </div>

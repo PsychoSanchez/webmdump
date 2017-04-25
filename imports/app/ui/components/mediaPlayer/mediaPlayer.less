@@ -8,104 +8,122 @@ input:focus {
   outline: none;
 }
 
-:-webkit-full-screen.css-video-container-block {
-  background: black;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  .media-player:hover {
-    cursor: none;
-  }
-  .css-video-container {
-    display: flex;
-    flex-direction: column;
-    width: inherit;
-    height: inherit;
-    .media-player {
-      flex: 1;
-    }
-  }
-}
-
-:-moz-full-screen.css-video-container-block {
-  background: black;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-
-  .css-video-container {
-    display: flex;
-    flex-direction: column;
-    width: inherit;
-    height: inherit;
-    .media-player {
-      flex: 1;
-    }
-  }
-}
-
-.css-video-container-block:fullscreen {
-  background: black;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-
-  .css-video-container {
-    display: flex;
-    flex-direction: column;
-    width: inherit;
-    height: inherit;
-    .media-player {
-      flex: 1;
-    }
-  }
-
-}
-
-.css-video-container-block.full-screen {
-  background: black;
-  display: flex;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-
-  .css-video-container {
-    display: flex;
-    flex-direction: column;
-    width: inherit;
-    height: inherit;
-
-    .media-player {
-      flex: 1;
-    }
-  }
-}
-
 .css-video-container-block {
   display: flex;
   justify-content: center;
-  // .css-video, .css-controls {
-  //   display: flex;
-  //   justify-content: center;
-  // }
+
+  // FullScreen
+  :-webkit-full-screen.css-full-screen-video-container {
+    background: black;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    .media-player:hover {
+      cursor: none;
+    }
+
+    .css-video-container {
+      display: flex;
+      flex-direction: column;
+      width: inherit;
+      height: inherit;
+      .media-player {
+        flex: 1;
+      }
+    }
+
+    .css-video {
+      max-width: inherit;
+    }
+
+    .css-controls {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      opacity: 0;
+    }
+
+    .css-controls:hover {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      opacity: 1;
+    }
+  }
+
+  :-moz-full-screen.css-full-screen-video-container {
+    background: black;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    .css-video-container {
+      display: flex;
+      flex-direction: column;
+      width: inherit;
+      height: inherit;
+      .media-player {
+        flex: 1;
+      }
+    }
+
+    .media-player:hover {
+      cursor: none;
+    }
+
+    .css-video {
+      max-width: inherit;
+    }
+
+    .css-controls {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      opacity: 0;
+    }
+
+    .css-controls:hover {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      opacity: 1;
+    }
+  }
+
+  .css-full-screen-video-container:fullscreen {
+    background: black;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    .css-video-container {
+      display: flex;
+      flex-direction: column;
+      width: inherit;
+      height: inherit;
+      .media-player {
+        flex: 1;
+      }
+    }
+  }
 
   .css-controls {
     background: @colorShade;
     display: flex;
     flex-direction: column;
-    -webkit-transition: height 1s ease-out 0.5s;
-    -moz-transition: height 1s ease-out 0.5s;
-    -o-transition: height 1s ease-out 0.5s;
-    transition: height 1s ease-out 0.5s;
+    -webkit-transition: opacity 1s linear;
+    -moz-transition: opacity 1s linear;
+    -o-transition: opacity 1s linear;
+    transition: opacity 1s linear;
   }
 
   .css-controls-buttons {
     display: flex;
     flex-direction: row;
-
   }
 
   .css-controls-slider {
@@ -120,13 +138,14 @@ input:focus {
 
   .css-video {
     min-width: 960px;
+    max-width: 1280px;
     display: inline-block;
   }
 
   .css-link {
     margin-left: auto;
-
   }
+
   .css-button-full-screen {
   }
 

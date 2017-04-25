@@ -29,7 +29,7 @@ export class MediaPlayer {
    */
   init(container) {
     this.container = container;
-    this.fsContainer = container.find('.css-video-container-block');
+    this.fsContainer = container.find('.css-full-screen-video-container');
     this.player = container.find('.media-player');
     this.playBtn = container.find('.play-button');
     this.stopBtn = container.find('.stop-button');
