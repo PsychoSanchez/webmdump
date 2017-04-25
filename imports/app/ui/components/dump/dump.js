@@ -91,6 +91,10 @@ Template.uploadedFiles.onCreated(function () {
       this.addedWebms += 1;
       let page = createPage(cursor, 0);
       this.updatePage(page);
+      if (this.addedWebms > 1) {
+        let audio = new Audio('/audio/ContactSignsIn.wav');
+        audio.play();
+      }
     }
   });
 
