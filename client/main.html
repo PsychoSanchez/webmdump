@@ -7,17 +7,19 @@
 </body>
 
 <template name="appMain">
-    {{> Template.dynamic template=main}}
+  {{> Template.dynamic template=main}}
 </template>
 
 <template name="home">
-    <div class="background-wrapper">
-        {{> uploadForm}}
-        {{> uploadedFiles}}
-        {{> chat}}
-    </div>
+  <div class="background-wrapper">
+    {{> uploadForm}}
+    {{> uploadedFiles}}
+    {{> logo}}
+    {{> chat}}
+  </div>
 </template>
 
 <template name="post">
-    {{> garbagePost}}
+  {{> garbagePost}}
+  {{> logo}}
 </template>

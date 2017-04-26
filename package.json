@@ -2,7 +2,8 @@
   "name": "chat",
   "private": true,
   "scripts": {
-    "start": "meteor run"
+    "start": "meteor run",
+    "dev": "meteor run --port 3030"
   },
   "dependencies": {
     "babel-runtime": "^6.18.0",
