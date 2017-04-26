@@ -11,9 +11,3 @@ Meteor.startup(() => {
   let imageUrl = _.sample(IMAGES);
   this.$('body').css('background-image', 'url("/' + imageUrl + '")');
 });
-
-Template.logo.events({
-  'click .logo'() {
-    FlowRouter.go('/random');
-  }
-});

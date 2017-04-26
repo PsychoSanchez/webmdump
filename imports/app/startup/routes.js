@@ -42,7 +42,8 @@ FlowRouter.route('/random', {
           postLink: '/shitpost/' + webm._id,
           type: webm.type,
           name: webm.name,
-          autoplay: true
+          autoplay: true,
+          random: true
         }
       });
     });

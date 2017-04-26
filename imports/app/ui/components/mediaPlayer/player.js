@@ -42,8 +42,7 @@ export class MediaPlayer {
     this.initEvents();
 
     if (this.player.currentSrc === "") {
-      this.player.src = $(this.player).attr('data-src');
-      this.player.load();
+      this.reload();
     }
   };
 
@@ -99,7 +98,7 @@ export class MediaPlayer {
     });
     this.player.addEventListener('error', (e) => {
       e.stopImmediatePropagation();
-      this.container.find('.css-video-container-block').innerHTML = '';
+      $(this.container.find('.css-video-container')).hide();
       Blaze.render(Template.notFound, this.container.find('.css-video-container-block'));
     });
     this.player.addEventListener('stalled', (e) => {
@@ -197,6 +196,13 @@ export class MediaPlayer {
     this.pause();
     this.player.currentTime = 0;
   };
+
+  reload(){
+    $(this.container.find('.not-found')).remove();
+    $(this.container.find('.css-video-container')).css('display: block');
+    this.player.src = $(this.player).attr('data-src');
+    this.player.load();
+  }
 
   /**
    * Goto frame

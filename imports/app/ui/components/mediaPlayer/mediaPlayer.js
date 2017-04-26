@@ -15,6 +15,12 @@ Template.player.onCreated(function () {
 Template.player.onRendered(function () {
   let player = Template.instance().player.get();
   player.init(Template.instance());
+  this.autorun(() => {
+    let data = Template.currentData();
+    if (data.random) {
+      this.player.get().reload();
+    }
+  });
 });
 
 Template.player.events({
