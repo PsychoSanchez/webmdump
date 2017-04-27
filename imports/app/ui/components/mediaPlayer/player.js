@@ -163,6 +163,7 @@ export class MediaPlayer {
       addClass: (!state) ? PLAYBTN_STATES.PLAY : PLAYBTN_STATES.PAUSE,
       title: (state) ? 'Pause' : 'Play'
     });
+    return state;
   };
 
   /**
@@ -199,7 +200,7 @@ export class MediaPlayer {
 
   reload(){
     $(this.container.find('.not-found')).remove();
-    $(this.container.find('.css-video-container')).css('display: block');
+    $(this.container.find('.css-video-container')).css({display: ""});
     this.player.src = $(this.player).attr('data-src');
     this.player.load();
   }

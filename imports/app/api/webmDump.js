@@ -2,6 +2,7 @@
  * Created by Admin on 21.04.2017.
  */
 import {FilesCollection} from 'meteor/ostrio:files';
+import 'meteor/fish:ffmpeg';
 import * as VARS from './localStorageVars';
 
 
@@ -28,4 +29,27 @@ export const Dump = new FilesCollection({
     // // Must return true to continue download
     return true;
   },
+  onAfterUpload: function(fileRef) {
+    return true;
+
+    var formats, sourceFile;
+    sourceFile = ffmpeg(fileRef.path).noProfile();
+    _.each(formats, function(convert, format) {
+      var file, upd, version;
+      if (convert) {
+        file = _.clone(sourceFile);
+        version = file.someHowConvertVideoAndReturnFileData(format);
+        upd = {
+          $set: {}
+        };
+        upd['$set']['thumbnail.' + format] = {
+          path: version.path,
+          size: version.size,
+          type: version.type,
+          extension: version.extension
+        };
+        return Videos.update(fileRef._id, upd);
+      }
+    });
+  }
 });

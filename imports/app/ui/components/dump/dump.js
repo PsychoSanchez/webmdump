@@ -7,6 +7,7 @@ import {Dump} from '../../../api/webmDump';
 import './dump.html';
 import './dump.less';
 import {DOMAIN} from '../../../data/localConfig'
+export const CURRENTLY_PLAYING = new ReactiveVar('');
 const WEBMS_PER_PAGE = 10;
 
 Template.uploadForm.onCreated(function () {
@@ -59,6 +60,7 @@ function createPage(cursor, pageNum) {
     temp.postLink = '/shitpost/' + file._id;
     temp.type = file.type;
     temp.name = file.name;
+    temp.id = file._id;
     page.files.push(temp);
   });
   return page;
@@ -123,7 +125,6 @@ Template.uploadedFiles.onRendered(function () {
   };
   $(window).scroll(this.scrollHandler);
 });
-
 
 Template.uploadedFiles.onDestroyed(function () {
   this.webmsArray.set([]);
