@@ -12,7 +12,7 @@ FlowRouter.route('/', {
 });
 
 FlowRouter.route('/dump/:_id', {
-  name: 'shit.post',
+  name: 'dump.post',
   action(params, queryParams) {
     FlowRouter.go('/shitpost/' + params._id);
   }

@@ -1,0 +1,16 @@
+<template name="feedLine">
+  <div class="uploaded-main-page">
+    {{#each page in pages}}
+      {{> pageBlock page=page}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="pageBlock">
+  <div class="uploaded-trash-page">
+    {{#each video in page}}
+      {{> player video=video}}
+      <div class="css-video-separator"></div>
+    {{/each}}
+  </div>
+</template>

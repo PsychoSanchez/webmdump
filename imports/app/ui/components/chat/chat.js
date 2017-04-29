@@ -3,7 +3,7 @@
  */
 import {Meteor} from 'meteor/meteor';
 import {Template} from 'meteor/templating';
-import {MessagesDB} from '../../../api/messages.js';
+import {MessagesDB} from '../../../api/database.js';
 import './chat.css';
 import './chat.html';
 
@@ -19,16 +19,16 @@ Meteor.startup(() => {
     }
   });
 });
-
+Template.messageWindow.onCreated(function () {
+  this.autorun(() => {
+    this.subscribe('chat.public');
+  });
+});
 Template.messageWindow.helpers({
   messages(){
-    return updateDB();
+    return MessagesDB.find({}, {skip: MessagesDB.find().count() - 15});
   }
 });
-
-function updateDB() {
-  return MessagesDB.find({}, {skip: MessagesDB.find().count() - 15});
-}
 
 Template.messageInput.events({
   'submit .send-message'(event){
@@ -37,10 +37,18 @@ Template.messageInput.events({
     let text = event.target.message.value;
     let name = event.target.name.value;
 
-    MessagesDB.insert({
+    Meteor.call('chat.sendMessage', {
+      userId: this.userId ? this.userId : -1,
       user: name ? name : "Anon",
       message: text,
-      sendDate: new Date()
+      sendDate: new Date(),
+      ip: this.connection.clientAddress // connection undefined
+    }, (err, res) => {
+      if (err) {
+        alert(err);
+      } else {
+        // success!
+      }
     });
 
     event.target.message.value = '';
@@ -64,8 +72,8 @@ Template.chat.events({
   }
 });
 
-class Chat{
-  static setCollapsed(collapsed){
+class Chat {
+  static setCollapsed(collapsed) {
     let action = (collapsed) ? 'show' : 'hide';
     $('.chat-block')[action]();
     $('.toggle-chat-btn').html((!collapsed) ? 'Show' : 'Hide');
