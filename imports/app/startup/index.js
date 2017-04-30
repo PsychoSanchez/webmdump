@@ -9,4 +9,5 @@ import '../ui/components/chat/chat.js';
 import '../ui/components/uploadForm/upload.js';
 import '../ui/pages/feed/feed.js';
 import '../ui/pages/post/post.js';
+import '../ui/pages/login/login.js';
 import '../ui/layouts/logo/logo.js';

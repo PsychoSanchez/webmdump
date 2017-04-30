@@ -7,7 +7,8 @@ import {DOMAIN} from '../data/localConfig';
 FlowRouter.route('/', {
   name: 'main',
   action(params, queryParams) {
-    BlazeLayout.render('appMain', {main: 'home'});
+    Session.set("DocumentTitle", 'Webm Dump');
+    BlazeLayout.render('appMain', {main: 'home', title: 'Webm Dump'});
   }
 });
 
@@ -15,6 +16,14 @@ FlowRouter.route('/dump/:_id', {
   name: 'dump.post',
   action(params, queryParams) {
     FlowRouter.go('/shitpost/' + params._id);
+  }
+});
+
+FlowRouter.route('/login', {
+  name: 'login.page',
+  action(params, queryParams) {
+    Session.set("DocumentTitle", "Вход в помойку");
+    BlazeLayout.render('appMain', {main: 'loginMain'});
   }
 });
 
@@ -35,6 +44,7 @@ FlowRouter.route('/random', {
       while (!webm) {
         webm = rollWebm();
       }
+      Session.set("DocumentTitle", "Random Webm");
       BlazeLayout.render('appMain', {
         main: 'post',
         webm: {
@@ -57,6 +67,7 @@ FlowRouter.route('/shitpost/:_id', {
     Meteor.subscribe('files.dump.all', () => {
       let webm = Dump.findOne({_id: params._id});
       if (webm) {
+        Session.set("DocumentTitle", webm.name + ' shitpost at Webm Dump');
         BlazeLayout.render('appMain', {
           main: 'post',
           webm: {
@@ -67,6 +78,7 @@ FlowRouter.route('/shitpost/:_id', {
           }
         });
       } else {
+        Session.set("DocumentTitle", '404 trash not found');
         BlazeLayout.render('appMain', {main: 'notFound'});
       }
     });
