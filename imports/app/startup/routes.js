@@ -18,7 +18,6 @@ FlowRouter.route('/dump/:_id', {
   }
 });
 
-
 function rollWebm() {
   let length = Dump.find().count();
   let index = Math.floor(Math.random() * length);
@@ -49,7 +48,6 @@ FlowRouter.route('/random', {
     });
   }
 });
-
 
 FlowRouter.route('/shitpost/:_id', {
   name: 'shit.post',

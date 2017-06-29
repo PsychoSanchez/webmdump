@@ -1,9 +1,9 @@
 /**
- * Created by Admin on 29.04.2017.
- */
-
-import './upload.html'
-import './upload.less'
+* Created by Admin on 29.04.2017.
+*/
+import {Dump} from '../../../api/webmDump';
+import './upload.html';
+import './upload.less';
 
 Template.uploadForm.onCreated(function () {
   this.currentUpload = new ReactiveVar(false);
