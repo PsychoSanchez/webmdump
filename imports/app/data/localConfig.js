@@ -1,1 +1,1 @@
-export const DOMAIN = 'psychosanchez.ru';
+export const DOMAIN = 'webmdump.ru';
